@@ -48,7 +48,7 @@ type content struct {
 	TitleizePackage string
 }
 
-func createModule(c *cli.Context) error {
+func runNew(c *cli.Context) error {
 	module := c.String("module")
 	a := strings.Split(module, "/")
 	packageName := a[len(a)-1]

@@ -36,11 +36,21 @@ func commands() []*cli.Command {
 			Name:    "new",
 			Aliases: []string{"n"},
 			Usage:   "create a new module",
-			Action:  createModule,
+			Action:  runNew,
 			Flags: []cli.Flag{
 				&cli.BoolFlag{Name: "lib", Usage: "use a binary template"},
 				&cli.BoolFlag{Name: "bin", Usage: "use a library template (default)"},
 				&cli.StringFlag{Name: "module", Usage: "`module` name to use", Aliases: []string{"m"}, Required: true},
+			},
+		},
+		{
+			Name:    "build",
+			Aliases: []string{"b"},
+			Usage:   "build a module",
+			Action:  runBuild,
+			Flags: []cli.Flag{
+				&cli.BoolFlag{Name: "release", Usage: "build in release mode"},
+				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
 			},
 		},
 	}
