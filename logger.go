@@ -7,7 +7,8 @@ import (
 	"github.com/y-yagi/color"
 )
 
-type KuraLogger struct {
+// Logger is a logger for kura.
+type Logger struct {
 	w io.Writer
 }
 
@@ -16,14 +17,14 @@ var (
 )
 
 // NewLogger creates a new Logger.
-func NewLogger(w io.Writer) *KuraLogger {
-	l := &KuraLogger{w: w}
+func NewLogger(w io.Writer) *Logger {
+	l := &Logger{w: w}
 	return l
 }
 
 // Printf print log with format.
-func (l *KuraLogger) Printf(action, format string, a ...interface{}) {
+func (l *Logger) Printf(action, format string, a ...interface{}) {
 	log := fmt.Sprintf("%s ", green(action))
 	log += fmt.Sprintf(format, a...)
-	fmt.Fprintf(l.w, log)
+	fmt.Fprint(l.w, log)
 }

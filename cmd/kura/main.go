@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	logger *kura.KuraLogger
+	logger *kura.Logger
 )
 
 func main() {
