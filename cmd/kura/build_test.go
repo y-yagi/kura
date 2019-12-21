@@ -93,7 +93,8 @@ func setupTestFile() (string, error) {
 		return "", err
 	}
 
-	if err = ioext.CopyFile(filepath.Join("testdata", "build_test.go"), filepath.Join(tempDir, "main.go"), 0644); err != nil {
+	absPath := "../../"
+	if err = ioext.CopyFile(filepath.Join(absPath, "testdata", "build_test.go"), filepath.Join(tempDir, "main.go"), 0644); err != nil {
 		return "", err
 	}
 
