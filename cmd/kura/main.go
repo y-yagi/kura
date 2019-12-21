@@ -13,7 +13,6 @@ var (
 )
 
 func main() {
-	logger = kura.NewLogger(os.Stdout)
 	os.Exit(run(os.Args))
 }
 
@@ -32,6 +31,8 @@ func run(args []string) int {
 	app.Version = "0.0.1"
 	app.Action = appRun
 	app.Commands = commands()
+
+	logger = kura.NewLogger(os.Stdout)
 
 	return msg(app.Run(args))
 }
