@@ -96,5 +96,6 @@ func runNew(c *cli.Context) error {
 	if err := cmd.Run(); err != nil {
 		return err
 	}
+	logger.Printf("Created", "'%s' module \n", module)
 	return nil
 }

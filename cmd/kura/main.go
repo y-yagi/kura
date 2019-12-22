@@ -5,6 +5,11 @@ import (
 	"os"
 
 	"github.com/urfave/cli/v2"
+	"github.com/y-yagi/kura"
+)
+
+var (
+	logger *kura.Logger
 )
 
 func main() {
@@ -26,6 +31,8 @@ func run(args []string) int {
 	app.Version = "0.0.1"
 	app.Action = appRun
 	app.Commands = commands()
+
+	logger = kura.NewLogger(os.Stdout)
 
 	return msg(app.Run(args))
 }
