@@ -31,7 +31,7 @@ func runBuild(c *cli.Context) error {
 
 	out, err := exec.Command("go", buildOpt...).CombinedOutput()
 	if err != nil {
-		fmt.Printf("Build: %s\n", out)
+		fmt.Printf("Build failed: %s\n", out)
 		return err
 	}
 	return nil
