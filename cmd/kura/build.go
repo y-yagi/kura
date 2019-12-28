@@ -8,7 +8,7 @@ import (
 )
 
 func runBuild(c *cli.Context) error {
-	buildOpt := []string{"build"}
+	buildOpt := []string{}
 	ldflags := ""
 
 	if !c.Bool("release") {
@@ -29,10 +29,12 @@ func runBuild(c *cli.Context) error {
 		buildOpt = append(buildOpt, ldflags)
 	}
 
-	out, err := exec.Command("go", buildOpt...).CombinedOutput()
+	optWithCommand := append([]string{"build"}, buildOpt...)
+	out, err := exec.Command("go", optWithCommand...).CombinedOutput()
 	if err != nil {
 		fmt.Printf("Build failed: %s\n", out)
 		return err
 	}
+	logger.Printf("Build Finished", "with '%v' options\n", buildOpt)
 	return nil
 }
