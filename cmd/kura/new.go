@@ -23,8 +23,8 @@ func main() {
 
 const libtpl = `package {{.Package}}
 
-func {{.Package}}() string {
-	return "Hello, world!"
+func {{.Package}}(name string) string {
+	return "Hello, " + name
 }
 `
 
@@ -34,11 +34,19 @@ import (
 	"testing"
 )
 
+var tests = []struct {
+	in   string
+	want string
+}{
+	{"Bob", "Hello, Bob"},
+}
+
 func Test{{.TitleizePackage}}(t *testing.T) {
-	got := {{.Package}}()
-	want := "Hello, world!"
-	if want != got {
-		t.Fatalf("got %q, want %q", got, want)
+	for _, tt := range tests {
+	  got := {{.Package}}(tt.in)
+	  if tt.want != got {
+	  	t.Fatalf("got %q, want %q", got, tt.want)
+	  }
 	}
 }
 `
