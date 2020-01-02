@@ -60,6 +60,16 @@ func commands() []*cli.Command {
 				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
 			},
 		},
+		{
+			Name:    "install",
+			Aliases: []string{"i"},
+			Usage:   "install a module",
+			Action:  runInstall,
+			Flags: []cli.Flag{
+				&cli.BoolFlag{Name: "release", Usage: "build in release mode"},
+				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
+			},
+		},
 	}
 }
 

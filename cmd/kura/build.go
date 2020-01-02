@@ -3,11 +3,20 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 
 	"github.com/urfave/cli/v2"
 )
 
 func runBuild(c *cli.Context) error {
+	return buildOrInstall("build", c)
+}
+
+func runInstall(c *cli.Context) error {
+	return buildOrInstall("install", c)
+}
+
+func buildOrInstall(action string, c *cli.Context) error {
 	buildOpt := []string{}
 	ldflags := ""
 
@@ -29,12 +38,12 @@ func runBuild(c *cli.Context) error {
 		buildOpt = append(buildOpt, ldflags)
 	}
 
-	optWithCommand := append([]string{"build"}, buildOpt...)
+	optWithCommand := append([]string{action}, buildOpt...)
 	out, err := exec.Command("go", optWithCommand...).CombinedOutput()
 	if err != nil {
-		fmt.Printf("Build failed: %s\n", out)
+		fmt.Printf("%s failed: %s\n", strings.Title(action), out)
 		return err
 	}
-	logger.Printf("Build Finished", "with '%v' options\n", buildOpt)
+	logger.Printf(strings.Title(action)+" Finished", "with '%v' options\n", buildOpt)
 	return nil
 }
