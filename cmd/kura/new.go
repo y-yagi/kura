@@ -100,9 +100,11 @@ func runNew(c *cli.Context) error {
 	}
 
 	os.Chdir(packageName)
-	cmd := exec.Command("go", "mod", "init", module)
-	if err := cmd.Run(); err != nil {
-		return err
+	if !c.Bool("no-mod-init") {
+		cmd := exec.Command("go", "mod", "init", module)
+		if err := cmd.Run(); err != nil {
+			return err
+		}
 	}
 	logger.Printf("Created", "'%s' module \n", module)
 	return nil
