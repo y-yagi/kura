@@ -57,7 +57,12 @@ type content struct {
 }
 
 func runNew(c *cli.Context) error {
-	module := c.String("module")
+	module := c.Args().Get(0)
+	if len(module) == 0 {
+		cli.ShowSubcommandHelp(c)
+		return nil
+	}
+
 	a := strings.Split(module, "/")
 	packageName := a[len(a)-1]
 
