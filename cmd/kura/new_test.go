@@ -19,7 +19,7 @@ func TestNew_Bin(t *testing.T) {
 	defer os.RemoveAll(tempDir)
 
 	os.Chdir(tempDir)
-	run([]string{"kura", "new", "-m", "github.com/y-yagi/dummy"})
+	run([]string{"kura", "new", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
 	got, err := exec.Command("go", "run", "main.go").Output()
@@ -41,7 +41,7 @@ func TestNew_Lib(t *testing.T) {
 	defer os.RemoveAll(tempDir)
 
 	os.Chdir(tempDir)
-	run([]string{"kura", "new", "--lib", "-m", "github.com/y-yagi/dummy"})
+	run([]string{"kura", "new", "--lib", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
 	got, err := exec.Command("go", "test").Output()
@@ -63,7 +63,7 @@ func TestNew_WithNoModInit(t *testing.T) {
 	defer os.RemoveAll(tempDir)
 
 	os.Chdir(tempDir)
-	run([]string{"kura", "new", "-no-mod-init", "-m", "github.com/y-yagi/dummy"})
+	run([]string{"kura", "new", "-no-mod-init", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
 	if osext.IsExist("go.mod") {
