@@ -39,6 +39,7 @@ func buildOrInstall(action string, c *cli.Context) error {
 	}
 
 	optWithCommand := append([]string{action}, buildOpt...)
+	optWithCommand = append(optWithCommand, c.Args().Slice()...)
 	out, err := exec.Command("go", optWithCommand...).CombinedOutput()
 	if err != nil {
 		fmt.Printf("%s failed: %s\n", strings.Title(action), out)
