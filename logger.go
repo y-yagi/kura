@@ -24,7 +24,11 @@ func NewLogger(w io.Writer) *Logger {
 
 // Printf print log with format.
 func (l *Logger) Printf(action, format string, a ...interface{}) {
-	log := fmt.Sprintf("%s ", green(action))
+	var log string
+
+	if len(action) != 0 {
+		log += fmt.Sprintf("%s ", green(action))
+	}
 	log += fmt.Sprintf(format, a...)
 	fmt.Fprint(l.w, log)
 }

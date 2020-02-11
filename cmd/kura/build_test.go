@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -9,7 +10,15 @@ import (
 	"testing"
 
 	"github.com/y-yagi/goext/ioext"
+	"github.com/y-yagi/kura"
 )
+
+var b bytes.Buffer
+
+func TestMain(m *testing.M) {
+	logger = kura.NewLogger(&b)
+	os.Exit(m.Run())
+}
 
 func TestBuild(t *testing.T) {
 	tempDir, err := setupTestFile()
@@ -124,6 +133,21 @@ func TestInstall_Ldflags(t *testing.T) {
 	want := "version: v1.0.0"
 	if string(out) != want {
 		t.Fatalf("expect '%q' but got '%q'", want, string(out))
+	}
+}
+
+func TestRun(t *testing.T) {
+	tempDir, err := setupTestFile()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(tempDir)
+
+	runCommandWithCleanEnv("run", tempDir, []string{"."})
+
+	out := b.String()
+	if !strings.Contains(out, "version: dev") {
+		t.Fatalf("expect '%q' does include 'version: dev'", out)
 	}
 }
 
