@@ -9,14 +9,18 @@ import (
 )
 
 func runBuild(c *cli.Context) error {
-	return buildOrInstall("build", c)
+	return runCmd("build", c)
 }
 
 func runInstall(c *cli.Context) error {
-	return buildOrInstall("install", c)
+	return runCmd("install", c)
 }
 
-func buildOrInstall(action string, c *cli.Context) error {
+func runRun(c *cli.Context) error {
+	return runCmd("run", c)
+}
+
+func runCmd(action string, c *cli.Context) error {
 	buildOpt := []string{}
 	ldflags := ""
 
@@ -45,6 +49,11 @@ func buildOrInstall(action string, c *cli.Context) error {
 		fmt.Printf("%s failed: %s\n", strings.Title(action), out)
 		return err
 	}
-	logger.Printf(strings.Title(action)+" Finished", "with '%v' options\n", buildOpt)
+
+	if action == "run" {
+		logger.Printf("", string(out))
+	} else {
+		logger.Printf(strings.Title(action)+" Finished", "with '%v' options\n", buildOpt)
+	}
 	return nil
 }

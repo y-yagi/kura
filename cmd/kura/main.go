@@ -13,6 +13,8 @@ var (
 )
 
 func main() {
+	logger = kura.NewLogger(os.Stdout)
+
 	os.Exit(run(os.Args))
 }
 
@@ -31,8 +33,6 @@ func run(args []string) int {
 	app.Version = "0.0.1"
 	app.Action = appRun
 	app.Commands = commands()
-
-	logger = kura.NewLogger(os.Stdout)
 
 	return msg(app.Run(args))
 }
@@ -66,6 +66,16 @@ func commands() []*cli.Command {
 			Aliases: []string{"i"},
 			Usage:   "install a module",
 			Action:  runInstall,
+			Flags: []cli.Flag{
+				&cli.BoolFlag{Name: "release", Usage: "build in release mode"},
+				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
+			},
+		},
+		{
+			Name:    "run",
+			Aliases: []string{"r"},
+			Usage:   "run a module",
+			Action:  runRun,
 			Flags: []cli.Flag{
 				&cli.BoolFlag{Name: "release", Usage: "build in release mode"},
 				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
