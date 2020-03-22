@@ -81,6 +81,12 @@ func commands() []*cli.Command {
 				&cli.StringFlag{Name: "ldflags", Usage: "`ldflags` to specify a build"},
 			},
 		},
+		{
+			Name:    "update",
+			Aliases: []string{"u"},
+			Usage:   "update dependencies ",
+			Action:  runUpdate,
+		},
 	}
 }
 

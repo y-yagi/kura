@@ -18,7 +18,9 @@ func TestNew_Bin(t *testing.T) {
 	}
 	defer os.RemoveAll(tempDir)
 
+	dir, _ := os.Getwd()
 	os.Chdir(tempDir)
+	defer os.Chdir(dir)
 	run([]string{"kura", "new", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
@@ -40,7 +42,9 @@ func TestNew_Lib(t *testing.T) {
 	}
 	defer os.RemoveAll(tempDir)
 
+	dir, _ := os.Getwd()
 	os.Chdir(tempDir)
+	defer os.Chdir(dir)
 	run([]string{"kura", "new", "--lib", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
@@ -62,7 +66,9 @@ func TestNew_WithNoModInit(t *testing.T) {
 	}
 	defer os.RemoveAll(tempDir)
 
+	dir, _ := os.Getwd()
 	os.Chdir(tempDir)
+	defer os.Chdir(dir)
 	run([]string{"kura", "new", "-no-mod-init", "github.com/y-yagi/dummy"})
 	os.Chdir("dummy")
 
