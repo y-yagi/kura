@@ -45,7 +45,7 @@ func Test{{.TitleizePackage}}(t *testing.T) {
 	for _, tt := range tests {
 	  got := {{.Package}}(tt.in)
 	  if tt.want != got {
-	  	t.Fatalf("got %q, want %q", got, tt.want)
+	  	t.Fatalf("got %+v, want %+v", got, tt.want)
 	  }
 	}
 }
