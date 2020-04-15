@@ -46,8 +46,8 @@ func commands() []*cli.Command {
 			ArgsUsage: "[module name]",
 			Action:    runNew,
 			Flags: []cli.Flag{
-				&cli.BoolFlag{Name: "lib", Usage: "use a binary template"},
-				&cli.BoolFlag{Name: "bin", Usage: "use a library template (default)"},
+				&cli.BoolFlag{Name: "lib", Usage: "use a library template"},
+				&cli.BoolFlag{Name: "bin", Usage: "use a binary template (default)"},
 				&cli.BoolFlag{Name: "no-mod-init", Usage: "do not run 'mod init'"},
 			},
 		},
